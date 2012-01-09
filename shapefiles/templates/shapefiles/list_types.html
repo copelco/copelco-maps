@@ -1,0 +1,11 @@
+{% extends 'shapefiles/base.html' %}
+
+{% block header %}Types{% endblock %}
+
+{% block content %}
+    <ol>
+    {% for type in types %}
+        <li><a href='{% url list-locations type %}'>{{ type }}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shapefiles</title>
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+            }
+        </style>
+        {% block css %}{% endblock %}
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>        
+        {% block js%}{% endblock %}
+    </head>
+    <body>
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="#">Shapefiles</a>
+                    <ul class="nav">
+                        <li><a href="{% url list-types %}">Types</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-header">
+                    <h1>{% block header %}{% endblock %}</h1>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        {% block content %}{% endblock %}
+                    </div>
+                    <div class="span4">
+                        {% block sidebar %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

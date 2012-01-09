@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!-- olwidget includes -->
+        <script type="text/javascript" src="http://maps.google.com/maps?file=api&v=2&key="></script>
+        <script type='text/javascript' src='http://openlayers.org/api/2.9/OpenLayers.js'></script>
+        <script type='text/javascript' src='http://openstreetmap.org/openlayers/OpenStreetMap.js'></script>
+        <script type='text/javascript' src='{{ STATIC_URL }}olwidget/olwidget.js'></script>
+        <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}olwidget/olwidget.css" />
+        <title>Info Boxes over Various Geometries Example</title>
+        <style type='text/css'>
+            textarea {
+                width: 300px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Info Boxes over Various Geometries</h1>
+        <p>Displays popup over geometry when clicked.</p>
+        <div id='map'></div>
+        <script type='text/javascript'>//<![CDATA[
+            new olwidget.InfoMap('map', [
+                    {% for location in locations %}
+                        [
+                            "{{ location.geometry.wkt }}",
+                            "<p>{{ location.name }}</p>"
+                        ]{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+            ],
+            {
+                layers: ['google.streets'],
+            }); 
+        //]]></script>
+        <a href='#' onclick='document.getElementById("my_textarea").style.display="block";'>show textarea</a>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'shapefiles/base.html' %}
+{% load shapefile_tags %}
+
+{% block header %}{{ location }}{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    #map {
+        height: 600px;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    function initialize() {
+        var myOptions = {
+            center: new google.maps.LatLng({{ location.geometry.centroid.y }}, {{ location.geometry.centroid.x }}),
+            zoom: {{ location.geometry|gzoom }},
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+        var map = new google.maps.Map($('#map')[0], myOptions);
+        {% for polygon in location.geometry %}
+            var polygon = new google.maps.Polygon({
+                paths: {{ polygon|simplify|gpolygone }},
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35
+            });
+            polygon.setMap(map);
+        {% endfor %}
+    }
+    $(document).ready(function() {
+        initialize();
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+{% endblock %}
+
+{% block sidebar %}
+    <ol>
+    {% for location in locations %}
+        <li><a href='{% url view-location location.type location.pk %}'>{{ location }}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}
