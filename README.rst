@@ -1,7 +1,7 @@
 copelco-maps
 ============
 
-Simple project to play around with Shapefile, GeoDjango, and Google Maps.
+Simple project to play around with Shapefiles, GeoDjango, and Google Maps.
 
 Local Development Setup
 -----------------------
