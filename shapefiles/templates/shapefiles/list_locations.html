@@ -16,24 +16,38 @@
 <script type="text/javascript">
     function initialize() {
         var myOptions = {
-            center: new google.maps.LatLng({{ locations.unionagg.centroid.y }}, {{ locations.unionagg.centroid.x }}),
-            zoom: {{ locations.unionagg|gzoom }},
+            center: new google.maps.LatLng(35.5260232738, -79.1309089915),
+            zoom: 7,
             mapTypeId: google.maps.MapTypeId.TERRAIN
         };
         var map = new google.maps.Map($('#map')[0], myOptions);
-        {% for location in locations %}
-            {% for polygon in location.geometry %}
-                var polygon = new google.maps.Polygon({
-                    paths: {{ polygon|simplify|gpolygone }},
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35
+        var info_window = new google.maps.InfoWindow({ 
+            size: new google.maps.Size(150, 50)
+        });
+        $.getJSON('/shapefiles/api/location/?type={{ params.location_type }}', function(response) {
+            $.each(response.objects, function(idx, data) {
+                $.each(data.geometry, function(idx, points) {
+                    var path = new google.maps.MVCArray();
+                    $.each(points[0], function (idx, point) {
+                        path.push(new google.maps.LatLng(point[1], point[0]));
+                    });
+                    var polygon = new google.maps.Polygon({
+                        paths: path,
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#FF0000",
+                        fillOpacity: 0.35
+                    });
+                    google.maps.event.addListener(polygon, 'click', function(event) {
+                        info_window.setPosition(event.latLng);
+                        info_window.setContent(data.name);
+                        info_window.open(map);
+                    });
+                    polygon.setMap(map);
                 });
-                polygon.setMap(map);
-            {% endfor %}
-        {% endfor %}
+            });
+        });
     }
     $(document).ready(function() {
         initialize();

@@ -1,9 +1,13 @@
 from django.conf.urls import patterns, include, url
 
 from shapefiles import views
+from shapefiles.api import EntryResource
 
+
+entry_resource = EntryResource()
 
 urlpatterns = patterns('',
+    url(r'^api/', include(entry_resource.urls)),
     url(r'^type/$',
         views.TypeList.as_view(), name='list-types'),
     url(r'^type/(?P<location_type>[\w-]+)/$',
