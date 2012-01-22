@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, include, url
 
 from shapefiles import views
-from shapefiles.api import EntryResource
+from shapefiles.api import LocationResource
 
 
-entry_resource = EntryResource()
+entry_resource = LocationResource()
 
 urlpatterns = patterns('',
     url(r'^api/', include(entry_resource.urls)),

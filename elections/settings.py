@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'django.contrib.gis',
     'shapefiles',
+    'census',
 )
 
 # A sample logging configuration. The only tangible logging

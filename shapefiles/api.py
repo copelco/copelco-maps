@@ -11,7 +11,7 @@ from shapefiles.models import Location
 logger = logging.getLogger('shapefiles.api')
 
 
-class EntryResource(ModelResource):
+class LocationResource(ModelResource):
     class Meta:
         queryset = Location.objects.all()
         resource_name = 'location'
@@ -20,7 +20,7 @@ class EntryResource(ModelResource):
             'type': ['exact'],
         }
         # cache = SimpleCache()
-        limit = 1000
+        limit = 200
 
     def _log_geom(self, geom):
         msg = '{0} with {1} geometries and {2} coords'
@@ -32,7 +32,7 @@ class EntryResource(ModelResource):
         geom = bundle.obj.geometry
         self._log_geom(geom)
         logger.debug('Simplifying geometry...')
-        geom = bundle.obj.geometry.simplify(0.005, preserve_topology=True)
+        geom = bundle.obj.geometry.simplify(0.0005, preserve_topology=True)
         self._log_geom(geom)
         if geom.geom_type != 'MultiPolygon':
             logger.debug('Converting back to MultiPolygon')
