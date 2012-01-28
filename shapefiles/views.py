@@ -1,16 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views import generic
 
-from shapefiles.models import Location
+from shapefiles.models import Location, Place
 
 
-class TypeList(ListView):
+class Home(generic.TemplateView):
+    template_name = 'shapefiles/home.html'
+
+
+class TypeList(generic.ListView):
     queryset = Location.objects.values_list('type', flat=True).distinct()
     template_name = 'shapefiles/list_types.html'
     context_object_name = 'types'
 
 
-class LocationList(ListView):
+class LocationList(generic.ListView):
     template_name = 'shapefiles/list_locations.html'
     context_object_name = 'locations'
 
@@ -24,7 +28,7 @@ class LocationList(ListView):
         return data
 
 
-class LocationView(DetailView):
+class LocationView(generic.DetailView):
 
     def get_queryset(self):
         return Location.objects.filter(type=self.kwargs['location_type'])
@@ -42,3 +46,12 @@ def preview(request, location_type, location_id=None):
         locations = locations.filter(pk=location_id)
     context = {'locations': locations}
     return render(request, 'preview.html', context)
+
+
+class Places(generic.ListView):
+    model = Place
+    context_object_name = 'places'
+
+
+home = Home.as_view()
+list_places = Places.as_view()

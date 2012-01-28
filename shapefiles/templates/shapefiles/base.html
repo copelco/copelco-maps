@@ -3,13 +3,15 @@
     <head>
         <title>Shapefiles</title>
         <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css">
         <style type="text/css">
             body {
                 padding-top: 60px;
             }
         </style>
         {% block css %}{% endblock %}
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
         {% block js%}{% endblock %}
     </head>
     <body>
@@ -18,7 +20,8 @@
                 <div class="container">
                     <a class="brand" href="#">Shapefiles</a>
                     <ul class="nav">
-                        <li><a href="{% url list-types %}">Types</a></li>
+                        <li><a href="{% url list-types %}">Locations</a></li>
+                        <li><a href="{% url list-places %}">Places</a></li>
                     </ul>
                 </div>
             </div>

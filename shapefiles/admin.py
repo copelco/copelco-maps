@@ -1,5 +1,5 @@
 from django.contrib.gis import admin
-from shapefiles.models import Location
+from shapefiles.models import Location, Place
 
 
 class LocationAdmin(admin.OSMGeoAdmin):
@@ -8,4 +8,11 @@ class LocationAdmin(admin.OSMGeoAdmin):
     search_fields = ('name',)
 
 
+class PlaceAdmin(admin.OSMGeoAdmin):
+    list_display = ('name', 'address', 'point')
+    search_fields = ('name',)
+    default_zoom = 20
+
+
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Place, PlaceAdmin)

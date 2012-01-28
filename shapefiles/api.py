@@ -2,10 +2,10 @@ import logging
 
 from django.contrib.gis.geos import MultiPolygon, Polygon
 
-from tastypie.cache import SimpleCache
+from tastypie.api import Api
 from tastypie.resources import ModelResource
 
-from shapefiles.models import Location
+from shapefiles.models import Location, Place
 
 
 logger = logging.getLogger('shapefiles.api')
@@ -19,7 +19,6 @@ class LocationResource(ModelResource):
         filtering = {
             'type': ['exact'],
         }
-        # cache = SimpleCache()
         limit = 200
 
     def _log_geom(self, geom):
@@ -39,3 +38,17 @@ class LocationResource(ModelResource):
             geom = MultiPolygon(geom)
             self._log_geom(geom)
         return geom.coords
+
+
+class PlaceResource(ModelResource):
+    class Meta:
+        queryset = Place.objects.all()
+        allowed_methods = ['get']
+
+    def dehydrate_point(self, bundle):
+        return bundle.obj.point.coords
+
+
+v1_api = Api(api_name='v1')
+v1_api.register(LocationResource())
+v1_api.register(PlaceResource())
