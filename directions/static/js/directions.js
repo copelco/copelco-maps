@@ -33,5 +33,10 @@ $.widget("ui.directions", $.ui.map, {
                 }
             });
         });
+        var anchor = $('<a>').text(marker.title);
+        anchor.click(function (e) {
+            google.maps.event.trigger(marker, 'click');
+        });
+        $('#places').append($('<li></li>').append(anchor));
     }
 });
