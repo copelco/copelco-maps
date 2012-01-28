@@ -12,6 +12,9 @@ $.widget("ui.map", {
         var info_window = new google.maps.InfoWindow({ 
             'size': new google.maps.Size(150, 50)
         });
+        google.maps.event.addListener(map, 'click', function() {
+            info_window.close();
+        });
         $.getJSON(widget.options['url'], function(data) {
             $.each(data.objects, function(idx, place) {
                 var marker = new google.maps.Marker({
