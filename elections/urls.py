@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'elections.views.home', name='home'),
     url(r'^shapefiles/', include('shapefiles.urls')),
+    url(r'^directions/', include('directions.urls')),
     url(r'^census/', include('census.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

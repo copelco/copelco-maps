@@ -19,3 +19,4 @@ Some useful sites I found while Googling around:
 
 * http://iknuth.com/2010/04/displaying-a-google-maps-api-v3-map-in-a-django-application-with-geodjango-and-postgis/
 * http://www.geocodezip.com/
+* http://ajpiano.com/widgetfactory/#slide20
