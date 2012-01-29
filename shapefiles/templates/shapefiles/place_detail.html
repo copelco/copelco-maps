@@ -23,12 +23,28 @@
         });
         map.map("center", [{{ place.point.coords.0 }}, {{ place.point.coords.1 }}]);
         map.map("zoom", 16);
+        panorama = new google.maps.StreetViewPanorama($('#streetview')[0], {
+            navigationControl: false,
+            enableCloseButton: false,
+            addressControl: false,
+            linksControl: false,
+            visible: true
+        });
+        var marker = map.data('map').markers[0];
+        panorama.bindTo("position", marker);
+        // var sv = new google.maps.StreetViewService();
+        // sv.getPanoramaByLocation(marker.position, 50, function(data, status) {
+        //     // panorama.setPov({
+        //     //     heading: 270,
+        //     //     pitch: 0,
+        //     //     zoom: 1
+        //     //   });
+        // });
     });
 </script>
 {% endblock %}
 
-{% block content %}test
-{% endblock %}
+{% block content %}<div id='streetview' style="width:100%;height:600px"></div>{% endblock %}
 
 {% block sidebar %}
     <h3>{{ place }}</h3>
