@@ -29,16 +29,9 @@ $.widget("ui.map", {
         var widget = this;
         $.getJSON(widget.options['markers'], function(data) {
             $.each(data.objects, function(idx, place) {
-                var marker = new google.maps.Marker({
-                    'map': widget.map,
-                    'title': place.name,
-                    'position': new google.maps.LatLng(place.point[1], place.point[0])
-                });
-                widget.markers.push(marker);
-                widget.bounds.extend(marker.position);
-                widget._marker_added(marker);
+                widget.add_marker({'title': place.name, 'point': place.point});
             });
-            widget.map.fitBounds(widget.bounds);
+            widget.fit_bounds();
         });
     },
     _marker_added: function(marker) {
@@ -49,4 +42,27 @@ $.widget("ui.map", {
             widget.window.open(widget.map);
         });
     },
+    add_marker: function(data) {
+        var widget = this;
+        var marker = new google.maps.Marker({
+            'map': widget.map,
+            'title': data.title,
+            'position': new google.maps.LatLng(data.point[1], data.point[0])
+        });
+        widget.markers.push(marker);
+        widget.bounds.extend(marker.position);
+        widget._marker_added(marker);
+    },
+    fit_bounds: function() {
+        var widget = this;
+        widget.map.fitBounds(widget.bounds);
+    },
+    zoom: function(zoom) {
+        var widget = this;
+        widget.map.setZoom(zoom);
+    },
+    center: function(point) {
+        var widget = this;
+        widget.map.setCenter(new google.maps.LatLng(point[1], point[0]));
+    }
 });

@@ -24,3 +24,12 @@
 {% block content %}
     <div id="map"></div>
 {% endblock %}
+
+{% block sidebar %}
+    <h3>Places</h3>
+    <ul id='places'>
+    {% for place in places %}
+        <li><a href='{% url view-place place.pk %}'>{{ place }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

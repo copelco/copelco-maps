@@ -17,4 +17,5 @@ urlpatterns = patterns('',
         views.preview,
         name='preview'),
     url(r'^place/$', views.list_places, name='list-places'),
+    url(r'^place/(?P<pk>\d+)/$', views.view_place, name='view-place'),
 )

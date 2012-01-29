@@ -53,5 +53,10 @@ class Places(generic.ListView):
     context_object_name = 'places'
 
 
+class PlaceDetail(generic.DetailView):
+    model = Place
+
+
 home = Home.as_view()
 list_places = Places.as_view()
+view_place = PlaceDetail.as_view()
