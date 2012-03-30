@@ -34,7 +34,7 @@
         var info_window = new google.maps.InfoWindow({ 
             size: new google.maps.Size(150, 50)
         });
-        $.getJSON('/shapefiles/api/location/{{ location.pk }}/', function(data) {
+        $.getJSON('/shapefiles/api/v1/location/{{ location.pk }}/', function(data) {
             $.each(data.geometry, function(idx, points) {
                 var path = new google.maps.MVCArray();
                 $.each(points[0], function (idx, point) {
